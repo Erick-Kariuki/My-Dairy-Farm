@@ -14,11 +14,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -59,23 +61,33 @@ fun DashboardScreen(
                 .imePadding()
         ) {
 
-            Column(modifier = Modifier.padding(20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier = Modifier.padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
-                Text(text = "ERIC DAIRY FARM",
+                Text(
+                    text = "ERIC DAIRY FARM",
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp)
+                    fontSize = 24.sp
+                )
 
                 Spacer(modifier = Modifier.height(18.dp))
 
-                Row(horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = modifier.fillMaxWidth()) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = modifier.fillMaxWidth()
+                ) {
 
-                    Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
-                        elevation = CardDefaults.cardElevation(4.dp)) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.padding(8.dp)) {
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+                        elevation = CardDefaults.cardElevation(6.dp)
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
                             Image(
                                 painter = painterResource(R.drawable.cattle),
                                 contentDescription = null,
@@ -92,74 +104,160 @@ fun DashboardScreen(
                         }
                     }
 
-                    Column (horizontalAlignment = Alignment.CenterHorizontally){
-                        Image(
-                            painter = painterResource(R.drawable.cattle),
-                            modifier = modifier.size(90.dp),
-                            contentDescription = null
-                        )
-                        Text(text = "Milking",
-                            fontWeight = FontWeight.Bold)
-                        Text(text = "0",
-                            fontWeight = FontWeight.Bold)
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+                        elevation = CardDefaults.cardElevation(6.dp)
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.cattle),
+                                modifier = modifier.size(90.dp),
+                                contentDescription = null
+                            )
+                            Text(
+                                text = "Milking",
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = "0",
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
 
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Image(
-                            painter = painterResource(R.drawable.cattle),
-                            modifier = modifier.size(90.dp),
-                            contentDescription = null
-                        )
-                        Text(text = "Bulls",
-                            fontWeight = FontWeight.Bold)
-                        Text(text = "0",
-                            fontWeight = FontWeight.Bold)
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+                        elevation = CardDefaults.cardElevation(6.dp)
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.cattle),
+                                modifier = modifier.size(90.dp),
+                                contentDescription = null
+                            )
+                            Text(
+                                text = "Bulls",
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = "0",
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
 
                 Spacer(modifier = Modifier.height(30.dp))
 
-                Row(horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = modifier.fillMaxWidth()) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Image(
-                            painter = painterResource(R.drawable.cow),
-                            contentDescription = null,
-                            modifier = modifier.size(90.dp)
-                        )
-                        Text(text = "Dry",
-                            fontWeight = FontWeight.Bold)
-                        Text(text = "0",
-                            fontWeight = FontWeight.Bold)
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = modifier.fillMaxWidth()
+                ) {
+
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+                        elevation = CardDefaults.cardElevation(6.dp)
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.cow),
+                                contentDescription = null,
+                                modifier = modifier.size(90.dp)
+                            )
+                            Text(
+                                text = "Dry",
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = "0",
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
 
 
-                    Column (horizontalAlignment = Alignment.CenterHorizontally){
-                        Image(
-                            painter = painterResource(R.drawable.cow),
-                            modifier = modifier.size(90.dp),
-                            contentDescription = null
-                        )
-                        Text(text = "Heifers",
-                            fontWeight = FontWeight.Bold)
-                        Text(text = "0",
-                            fontWeight = FontWeight.Bold)
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+                        elevation = CardDefaults.cardElevation(6.dp)
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.cow),
+                                modifier = modifier.size(90.dp),
+                                contentDescription = null
+                            )
+                            Text(
+                                text = "Heifers",
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = "0",
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
 
 
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Image(
-                            painter = painterResource(R.drawable.cow),
-                            modifier = modifier.size(90.dp),
-                            contentDescription = null
-                        )
-                        Text(text = "Calves",
-                            fontWeight = FontWeight.Bold)
-                        Text(text = "0",
-                            fontWeight = FontWeight.Bold)
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+                        elevation = CardDefaults.cardElevation(6.dp)
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.cow),
+                                modifier = modifier.size(90.dp),
+                                contentDescription = null
+                            )
+                            Text(
+                                text = "Calves",
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = "0",
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
 
+            }
+
+
+            Card(modifier = Modifier.fillMaxWidth().padding(12.dp),
+                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.onPrimary)) {
+                Row(modifier = modifier.padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically) {
+                    Image(
+                        painter = painterResource(R.drawable.cowicon),
+                        contentDescription = null,
+                        modifier = Modifier.size(40.dp)
+                    )
+
+                    Spacer(modifier = modifier.width(20.dp))
+                    Column {
+                        Text(text = "Add Cow",
+                            style = MaterialTheme.typography.labelLarge,
+                            fontSize = 20.sp)
+
+                        Text(text = "Add a new cow to your app",
+                            style = MaterialTheme.typography.bodyLarge)
+                    }
+                }
             }
         }
     }
