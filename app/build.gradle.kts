@@ -65,4 +65,20 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.6.0")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
 
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
+    // Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0") // Use the latest stable version
+
+    // Gson Converter (for JSON serialization/deserialization)
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0") // Use the same version as Retrofit
+
+    // OkHttp (Retrofit uses OkHttp for network requests)
+    // You might also want to include the OkHttp logging interceptor for debugging
+    implementation ("com.squareup.okhttp3:okhttp:4.12.0") // Use the latest stable version
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.12.0") // Use the same version as OkHttp
+
+    //Cloudinary
+    implementation("com.cloudinary:cloudinary-android:2.3.1")
+
 }
