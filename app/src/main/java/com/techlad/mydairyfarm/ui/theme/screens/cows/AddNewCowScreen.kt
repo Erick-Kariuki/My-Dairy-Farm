@@ -1,5 +1,6 @@
 package com.techlad.mydairyfarm.ui.theme.screens.cows
 
+import android.app.DatePickerDialog
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,6 +34,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -56,10 +58,11 @@ import coil.compose.AsyncImage
 import com.techlad.mydairyfarm.R
 import com.techlad.mydairyfarm.ui.theme.MyDairyFarmTheme
 import com.techlad.mydairyfarm.viewmodels.CowViewModel
+import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddNewCowScreen(navController: NavController, modifier: Modifier = Modifier){
+fun AddNewCowScreen(navController: NavController, modifier: Modifier = Modifier, ){
     var cowName by remember { mutableStateOf("") }
     var motherName by remember { mutableStateOf("") }
     var dateOfBirth by remember { mutableStateOf("") }
@@ -78,6 +81,18 @@ fun AddNewCowScreen(navController: NavController, modifier: Modifier = Modifier)
 
     val context = LocalContext.current
     val cowViewModel: CowViewModel = viewModel()
+
+
+    val calendar = Calendar.getInstance()
+    val datePickerDialog = DatePickerDialog(
+        context,
+        { _, year, month, dayOfMonth ->
+            dateOfBirth = "$dayOfMonth/${month + 1}/$year"
+        },
+        calendar.get(Calendar.YEAR),
+        calendar.get(Calendar.MONTH),
+        calendar.get(Calendar.DAY_OF_MONTH)
+    )
 
 
     Scaffold (
@@ -157,7 +172,13 @@ fun AddNewCowScreen(navController: NavController, modifier: Modifier = Modifier)
 
                     OutlinedTextField(
                         value = dateOfBirth,
-                        onValueChange = { dateOfBirth = it },
+                        onValueChange = { },
+                        readOnly = true,
+                        trailingIcon = {
+                            TextButton(onClick = { datePickerDialog.show() }) {
+                                Text("Select")
+                            }
+                        },
                         label = { Text(text = "Date of Birth") },
                         placeholder = { Text(text = "Enter date of birth") },
                         modifier = Modifier.fillMaxWidth()
@@ -244,7 +265,9 @@ fun AddNewCowScreen(navController: NavController, modifier: Modifier = Modifier)
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Button(onClick = {}) {
+                        Button(onClick = {
+                            navController.popBackStack()
+                        }) {
                             Text(text = "CANCEL")
                         }
 
@@ -256,7 +279,7 @@ fun AddNewCowScreen(navController: NavController, modifier: Modifier = Modifier)
                                 dob = dateOfBirth,
                                 status = cowStatus,
                                 breed = cowBreed,
-                                tagNumber = motherName,
+                                tagNumber = tagNumber,
                                 context = context,
                                 navController = navController
 
