@@ -3,6 +3,7 @@ package com.techlad.mydairyfarm.ui.theme.screens.dashboard
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -21,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.techlad.mydairyfarm.R
 import com.techlad.mydairyfarm.navigation.ROUTE_ADD_NEW_COW
 import com.techlad.mydairyfarm.navigation.ROUTE_VIEW_COW
+import com.techlad.mydairyfarm.navigation.ROUTE_VIEW_INSEMINATED_COWS
 import com.techlad.mydairyfarm.ui.theme.MyDairyFarmTheme
 import com.techlad.mydairyfarm.viewmodels.CowViewModel
 
@@ -69,10 +71,15 @@ fun DashboardScreen(
         ) {
 
             Text(
-                text = "ERIC DAIRY FARM",
+                text = "Welcome to your dashboard",
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp
+            )
+            Text(
+                text = "Use this app to manage your cows",
+                style = MaterialTheme.typography.labelLarge,
+                fontSize = 16.sp
             )
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -84,7 +91,7 @@ fun DashboardScreen(
             ) {
                 StatusCard(R.drawable.cattle, "Total", totalCount,navController)
                 StatusCard(R.drawable.cattle, "Milking", milkingCount,navController)
-                StatusCard(R.drawable.cattle, "Bulls", bullsCount,navController)
+                StatusCard(R.drawable.cattle, "Bull", bullsCount,navController)
             }
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -95,16 +102,16 @@ fun DashboardScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 StatusCard(R.drawable.cow, "Dry", dryCount, navController)
-                StatusCard(R.drawable.cow, "Heifers", heifersCount, navController)
-                StatusCard(R.drawable.cow, "Calves", calvesCount,navController)
+                StatusCard(R.drawable.cow, "Heifer", heifersCount, navController)
+                StatusCard(R.drawable.cow, "Calf", calvesCount,navController)
             }
 
             Spacer(modifier = Modifier.height(32.dp))
 
+
             // Add Cow Card
             Card(
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
                     .clickable { navController.navigate(ROUTE_ADD_NEW_COW) },
                 elevation = CardDefaults.cardElevation(6.dp),
                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.onPrimary)
@@ -133,6 +140,75 @@ fun DashboardScreen(
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+
+            // Breeding records Card
+            Card(
+                modifier = Modifier.fillMaxWidth()
+                    .clickable { navController.navigate(ROUTE_VIEW_INSEMINATED_COWS) },
+                elevation = CardDefaults.cardElevation(6.dp),
+                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.onPrimary)
+            ) {
+                Row(
+                    modifier = Modifier.padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.cowicon),
+                        contentDescription = null,
+                        modifier = Modifier.size(40.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Column {
+                        Text(
+                            text = "Breeding Records",
+                            style = MaterialTheme.typography.labelLarge,
+                            fontSize = 20.sp
+                        )
+                        Text(
+                            text = "Manage your breeding records here",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+
+
+
+            // Milk records Card
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(6.dp),
+                colors = CardDefaults.cardColors(MaterialTheme.colorScheme.onPrimary)
+            ) {
+                Row(
+                    modifier = Modifier.padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.cowicon),
+                        contentDescription = null,
+                        modifier = Modifier.size(40.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Column {
+                        Text(
+                            text = "Milk Records",
+                            style = MaterialTheme.typography.labelLarge,
+                            fontSize = 20.sp
+                        )
+                        Text(
+                            text = "Manage your milk records here",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -142,7 +218,7 @@ fun StatusCard(
     imageRes: Int,
     label: String,
     count: Int,
-    navController: NavController = rememberNavController()
+    navController: NavController
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
