@@ -3,10 +3,13 @@ package com.techlad.mydairyfarm.ui.theme.screens.cows
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,12 +20,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.techlad.mydairyfarm.models.CowModel
+import com.techlad.mydairyfarm.navigation.ROUTE_UPDATE_COW
 import com.techlad.mydairyfarm.viewmodels.CowViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewCowsScreen(
     navController: NavController,
@@ -32,60 +38,88 @@ fun ViewCowsScreen(
     val cowViewModel: CowViewModel = viewModel()
     val context = LocalContext.current
 
-    // Fetch cows when screen opens
+    val cows = cowViewModel.cowList
+    val cowState by cowViewModel.cowState.collectAsState()
+    val isLoading = cowState.isLoading
+
+
+    // Normalize status for comparison
+    val filteredCows = if (status.equals("Total", ignoreCase = true)) {
+        cows
+    } else {
+        cows.filter { it.status.trim().lowercase() == status.trim().lowercase() }
+    }
+
     LaunchedEffect(Unit) {
         cowViewModel.fetchCows(context)
     }
 
-    val cows = cowViewModel.cowList
 
-    // ✅ Filter cows according to selected status
-    val filteredCows = remember(cows, status) {
-        if (status.equals("Total", ignoreCase = true)) cows
-        else cows.filter { it.status.equals(status, ignoreCase = true) }
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF4F4F4))
-            .padding(12.dp)
-    ) {
-        Text(
-            text = if (status.equals("Total", ignoreCase = true)) "All Cows" else "$status Cows",
-            style = MaterialTheme.typography.headlineSmall,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier
-                .padding(vertical = 16.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-
-        if (filteredCows.isEmpty()) {
-            Text(
-                text = "No cows found in this category.",
-                style = MaterialTheme.typography.bodyLarge,
-                color = Color.Gray,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text(text = "My Cows", fontSize = 28.sp) },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                )
             )
-        } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(bottom = 80.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.LightGray)
             ) {
-                items(filteredCows) { cow ->
-                    CowCard(
-                        cowModel = cow,
-                        onDelete = { cowId ->
-                            cowViewModel.deleteCow(cowId = cowId, context = context)
-                        },
-                        navController = navController
-                    )
+                when {
+                    isLoading -> {
+                        // Loading indicator centered
+                        CircularProgressIndicator(
+                            modifier = Modifier.align(Alignment.Center),
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+
+                    filteredCows.isEmpty() -> {
+                        // No cows text
+                        Text(
+                            text = "No cows found in this category",
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(horizontal = 24.dp),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = Color.DarkGray,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                        )
+                    }
+
+                    else -> {
+                        // List of cows
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            contentPadding = PaddingValues(vertical = 8.dp, horizontal = 12.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(filteredCows) { cow ->
+                                CowCard(
+                                    cowModel = cow,
+                                    onDelete = { cowId ->
+                                        cowViewModel.deleteCow(cowId = cowId, context = context)
+                                    },
+                                    navController = navController
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun CowCard(
@@ -133,10 +167,8 @@ fun CowCard(
                     model = cowModel.imageUrl,
                     contentDescription = "Cow Image",
                     modifier = Modifier
-                        .size(64.dp)
-                        .clip(CircleShape)
-                        .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape),
-                    contentScale = ContentScale.Crop
+                        .size(140.dp).clip(RoundedCornerShape(16.dp)),
+                    contentScale = ContentScale.Crop,
                 )
 
                 Spacer(modifier = Modifier.width(12.dp))
@@ -182,10 +214,11 @@ fun CowCard(
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         OutlinedButton(onClick = {
                             // TODO: Add update cow feature later
+                            navController.navigate(ROUTE_UPDATE_COW + "/${cowModel.cowId}")
                         }) {
                             Text(
                                 text = "EDIT",
