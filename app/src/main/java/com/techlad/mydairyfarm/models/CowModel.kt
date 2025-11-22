@@ -5,7 +5,7 @@ data class CowModel(
     val cowName: String = "",
     val motherName: String = "",
     val dateOfBirth: String = "",
-    val status: String = "",
+    var status: String = "",
     val breed: String = "",
     val tagNumber: String = "",
     val imageUrl: String = ""
