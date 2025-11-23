@@ -2,6 +2,8 @@ package com.techlad.mydairyfarm.ui.theme.screens.cows
 
 import android.app.DatePickerDialog
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -9,11 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.techlad.mydairyfarm.viewmodels.InseminatedCowViewModel
 import java.util.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddInseminatedCowScreen(navController: NavController, cowId: String?) {
     val viewModel: InseminatedCowViewModel = viewModel()
@@ -49,70 +53,84 @@ fun AddInseminatedCowScreen(navController: NavController, cowId: String?) {
         calendar.get(Calendar.DAY_OF_MONTH)
     )
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = if (isEditMode) "Edit Inseminated Cow" else "Add Inseminated Cow",
-            style = MaterialTheme.typography.titleLarge
-        )
+    Scaffold (
+        topBar = {
+            CenterAlignedTopAppBar(title = {Text(text = "Breeding Records", fontSize = 28.sp)},
+                colors = TopAppBarDefaults.topAppBarColors(MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary))
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier.padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .imePadding()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = if (isEditMode) "Edit Inseminated Cow" else "Add Inseminated Cow",
+                    style = MaterialTheme.typography.titleLarge
+                )
 
-        OutlinedTextField(
-            value = cowName,
-            onValueChange = { cowName = it },
-            label = { Text("Cow Name") },
-            modifier = Modifier.fillMaxWidth()
-        )
+                OutlinedTextField(
+                    value = cowName,
+                    onValueChange = { cowName = it },
+                    label = { Text("Cow Name") },
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-        OutlinedTextField(
-            value = bullBreed,
-            onValueChange = { bullBreed = it },
-            label = { Text("Bull Breed") },
-            modifier = Modifier.fillMaxWidth()
-        )
+                OutlinedTextField(
+                    value = bullBreed,
+                    onValueChange = { bullBreed = it },
+                    label = { Text("Bull Breed") },
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-        OutlinedTextField(
-            value = selectedDate,
-            onValueChange = {},
-            label = { Text("Insemination Date") },
-            modifier = Modifier.fillMaxWidth(),
-            readOnly = true,
-            trailingIcon = {
-                TextButton(onClick = { datePickerDialog.show() }) {
-                    Text("Select")
+                OutlinedTextField(
+                    value = selectedDate,
+                    onValueChange = {},
+                    label = { Text("Insemination Date") },
+                    modifier = Modifier.fillMaxWidth(),
+                    readOnly = true,
+                    trailingIcon = {
+                        TextButton(onClick = { datePickerDialog.show() }) {
+                            Text("Select")
+                        }
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Button(
+                    onClick = {
+                        if (isEditMode) {
+                            viewModel.updateInseminatedCow(
+                                cowId = cowId!!,
+                                cowName = cowName.text,
+                                bullBreed = bullBreed.text,
+                                date = selectedDate,
+                                context = context
+                            )
+                        } else {
+                            viewModel.addInseminatedCow(
+                                cowName.text,
+                                bullBreed.text,
+                                selectedDate,
+                                context
+                            )
+                        }
+                        navController.popBackStack()
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(if (isEditMode) "Update Record" else "Save Record")
                 }
             }
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Button(
-            onClick = {
-                if (isEditMode) {
-                    viewModel.updateInseminatedCow(
-                        cowId = cowId!!,
-                        cowName = cowName.text,
-                        bullBreed = bullBreed.text,
-                        date = selectedDate,
-                        context = context
-                    )
-                } else {
-                    viewModel.addInseminatedCow(
-                        cowName.text,
-                        bullBreed.text,
-                        selectedDate,
-                        context
-                    )
-                }
-                navController.popBackStack()
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(if (isEditMode) "Update Record" else "Save Record")
         }
     }
 }
