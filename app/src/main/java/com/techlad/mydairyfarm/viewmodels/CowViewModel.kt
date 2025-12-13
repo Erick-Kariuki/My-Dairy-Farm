@@ -43,7 +43,30 @@ class CowViewModel: ViewModel() {
     val cowState: StateFlow<CowUiState> = _cowState.asStateFlow()
 
 
+    private val _searchQuery = mutableStateOf("")
+    val searchQuery: State<String> = _searchQuery
 
+    fun updateSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
+
+    fun getFilteredCows(status: String): List<CowModel> {
+        val normalizedStatus = status.trim().lowercase()
+        val query = searchQuery.value.trim().lowercase()
+
+        return cowList.filter { cow ->
+
+            val matchesStatus =
+                normalizedStatus == "total" ||
+                        cow.status.trim().lowercase() == normalizedStatus
+
+            val matchesSearch =
+                query.isEmpty() ||
+                        cow.cowName.trim().lowercase().contains(query)
+
+            matchesStatus && matchesSearch
+        }
+    }
 
 
 

@@ -38,17 +38,17 @@ fun ViewCowsScreen(
     val cowViewModel: CowViewModel = viewModel()
     val context = LocalContext.current
 
-    val cows = cowViewModel.cowList
+    val filteredCows = cowViewModel.getFilteredCows(status)
     val cowState by cowViewModel.cowState.collectAsState()
     val isLoading = cowState.isLoading
 
-
+    //val cows = cowViewModel.cowList
     // Normalize status for comparison
-    val filteredCows = if (status.equals("Total", ignoreCase = true)) {
-        cows
-    } else {
-        cows.filter { it.status.trim().lowercase() == status.trim().lowercase() }
-    }
+//    val filteredCows = if (status.equals("Total", ignoreCase = true)) {
+//        cows
+//    } else {
+//        cows.filter { it.status.trim().lowercase() == status.trim().lowercase() }
+//    }
 
     LaunchedEffect(Unit) {
         cowViewModel.fetchCows(context)
@@ -69,6 +69,14 @@ fun ViewCowsScreen(
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
+            OutlinedTextField(
+                value = cowViewModel.searchQuery.value,
+                onValueChange = { cowViewModel.updateSearchQuery(it) },
+                label = { Text("Search cow by name") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp)
+            )
             Box(
                 modifier = Modifier
                     .fillMaxSize()
