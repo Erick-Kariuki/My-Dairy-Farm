@@ -32,13 +32,14 @@ The application focuses on simplicity, accuracy, and automation of common dairy 
 # Architecture
 The project follows the **MVVM (Model–View–ViewModel)** architecture to ensure separation of concerns, 
 testability, and maintainability.
-## Key Layers
-- UI (View): Jetpack Compose screens
-- ViewModel: Handles UI state and business logic
-- Repository: Acts as a single source of truth for data
-- Data Layer: Firebase services and models
+### Key Layers
+- **UI (View)**: Jetpack Compose screens
+- **ViewModel**: Handles UI state and business logic
+- **Repository**: Acts as a single source of truth for data
+- **Data Layer**: Firebase services and models
 
   State management is handled using:
     - State
     - mutableStateOf
     - StateFlow (where applicable)
+
