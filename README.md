@@ -11,18 +11,16 @@ The application focuses on simplicity, accuracy, and automation of common dairy 
 # Features
 - Add and manage cow records (name, age, date of birth, mother’s name)
 
-Track insemination records and pregnancy status
+- Track insemination records and pregnancy status
 
-Automatic pregnancy duration and expected due-date calculation
+- Automatic pregnancy duration and expected due-date calculation
 
-Color-coded pregnancy progress indicators
+- Color-coded pregnancy progress indicators
 
-Search cows by name
+- Search cows by name
 
-Sort cows by expected due date
+- Sort cows by expected due date
 
-Firebase Authentication (secure user access)
-
-Firebase Realtime Database for data persistence
-
-Modern UI built with Jetpack Compose
+- Firebase Authentication (secure user access)
+- Firebase Realtime Database for data persistence
+- Modern UI built with Jetpack Compose
