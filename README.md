@@ -43,3 +43,29 @@ testability, and maintainability.
     - mutableStateOf
     - StateFlow (where applicable)
 
+# UI (User Interface)
+- Built entirely with Jetpack Compose
+- Material 3 design system
+- Responsive layouts
+- Progress indicators for pregnancy stages
+- Clean, minimal, and farmer-friendly navigation
+
+  The UI prioritizes:
+    - Simplicity
+    - Readability
+    - Fast access to critical farm data
+
+# Future Enhancements
+- Milk production tracking
+- Cow health and vaccination records
+- Offline-first support
+- Data analytics and reporting
+- Cloud backup and restore
+
+# 👨‍💻 Author
+### Erick Ithandi
+Junior Android Developer
+Kotlin | Jetpack Compose | Firebase | MVVM
+
+# 📄 License
+This project is for educational and portfolio purposes.
