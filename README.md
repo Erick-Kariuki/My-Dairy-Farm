@@ -3,7 +3,7 @@ My Dairy Farm App
 
 This is the repository for the My Dairy Farm app. **It is a work in progress** 🚧.
 
-**My Dairy Farm** is a fully functional Android app built entirely with ***Kotlin*** and *Jetpack Compose*.
+**My Dairy Farm** is a fully functional Android app built entirely with ***Kotlin*** and ***Jetpack Compose***.
 It follows Android design and development best practices and is designed to aid dairy farmers 
 digitally manage cow records, monitor reproductive status, and make informed farming decisions. 
 The application focuses on simplicity, accuracy, and automation of common dairy farm record-keeping tasks.
@@ -28,3 +28,17 @@ The application focuses on simplicity, accuracy, and automation of common dairy 
 - **UI Toolkit**: Jetpack Compose
 - **Backend Services**: Firebase Authentication, Firebase Realtime Database
 - **Version Control**: Git & GitHub
+
+# Architecture
+The project follows the **MVVM (Model–View–ViewModel)** architecture to ensure separation of concerns, 
+testability, and maintainability.
+## Key Layers
+- UI (View): Jetpack Compose screens
+- ViewModel: Handles UI state and business logic
+- Repository: Acts as a single source of truth for data
+- Data Layer: Firebase services and models
+
+  State management is handled using:
+    - State
+    - mutableStateOf
+    - StateFlow (where applicable)
