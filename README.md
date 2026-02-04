@@ -22,8 +22,7 @@ The application focuses on simplicity, accuracy, and automation of common dairy 
 ## Screenshots
 
 ### Register & Login screens
-  ![Register screen](screenshots/dairy-farm1.jpeg)
-  ![Login screen](screenshots/dairy-farm2.jpeg)
+  ![Register screen](screenshots/dairy-farm1.jpeg) ![Login screen](screenshots/dairy-farm2.jpeg)
 
 # Development Environment
 - **Language**: Kotlin
