@@ -20,7 +20,7 @@ The application focuses on simplicity, accuracy, and automation of common dairy 
 - Modern UI built with Jetpack Compose
 
 ## Screenshots
-  ![Register screen](/home/erick/Downloads/dairy-farm1.jpeg "Screenshot showing register screen")
+  ![Register screen](erick@erick-HP-ProBook-450-G5:~/Downloads/dairy-farm1.jpeg "Screenshot showing register screen")
 
 # Development Environment
 - **Language**: Kotlin
