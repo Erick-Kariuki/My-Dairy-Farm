@@ -21,7 +21,7 @@ import com.techlad.mydairyfarm.ui.theme.screens.register.RegisterScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController = rememberNavController(),
-               startDestination: String = ROUTE_DASHBOARD,
+               startDestination: String = ROUTE_LOGIN,
                modifier: Modifier = Modifier
 ) {
     NavHost(navController = navController, startDestination = startDestination) {

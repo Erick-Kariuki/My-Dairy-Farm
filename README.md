@@ -19,6 +19,9 @@ The application focuses on simplicity, accuracy, and automation of common dairy 
 - Firebase Realtime Database for data persistence
 - Modern UI built with Jetpack Compose
 
+## Screenshots
+  ![Register screen](/home/erick/Downloads/dairy-farm1.jpeg "Screenshot showing register screen")
+
 # Development Environment
 - **Language**: Kotlin
 - **IDE**: Android Studio (Giraffe or newer)
