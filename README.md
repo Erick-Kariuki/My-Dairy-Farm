@@ -23,8 +23,28 @@ The application focuses on simplicity, accuracy, and automation of common dairy 
 
 ### Register & Login screens
 <p float="left">
-  <img src="screenshots/dairy-farm1.jpeg" width="720" alt=""/>
+  <img src="screenshots/dairy-farm1.jpeg" width="250" alt=""/>
   <img src="screenshots/dairy-farm2.jpeg" width="250" alt=""/>
+</p>
+
+### Dashboard screen
+<p float="left">
+  <img src="screenshots/dairy-farm3.jpeg" width="320" alt=""/>
+</p>
+
+### Add new cow screen
+<p float="left">
+  <img src="screenshots/dairy-farm4.jpeg" width="320" alt=""/>
+</p>
+
+### View my cows screen
+<p float="left">
+  <img src="screenshots/dairy-farm5.jpeg" width="320" alt=""/>
+</p>
+
+### Breeding records screen
+<p float="left">
+  <img src="screenshots/dairy-farm6.jpeg" width="320" alt=""/>
 </p>
 
 # Development Environment
